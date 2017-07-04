@@ -1,3 +1,7 @@
+var currentSongNumber = 1;
+var willLoop = 0; // 0 means abhi off h loop ni krna abhi
+var willShuffle = 0;
+
 // make single variable songs to make four objects having their property and value
 var songs = [{
   'name': 'Tamma Tamma Again (Tittle Track)',       // left side is property and in ryt side hv a value
@@ -110,19 +114,21 @@ function toggleSong() {
 var song = document.querySelector('audio');//ek var bnaya h song usm audio tag ko pakad liya
 if(song.paused == true) {           //agar song paused hoga toh play krdo
 console.log('Playing');
-$('.play-icon').removeClass('fa-play').addClass('fa-pause');
+$('.play-icon').removeClass('fa-play').addClass('fa-pause'); //or ism play icon ko pkdo usm s play icon ko remove krdo or pause icon ko add
 song.play();
 }
 else {
 console.log('Pausing');
-$('.play-icon').removeClass('fa-pause').addClass('fa-play');
+$('.play-icon').removeClass('fa-pause').addClass('fa-play');//jst oppposite of if part
 song.pause();         // nhi toh pause krdo
 }
 }
+
+
 // this function is used to change songs obj img,name,album
-function changeCurrentSongDetails(songObj) {
-    $('.current-song-image').attr('src','img/' + songObj.image)
-    $('.current-song-name').text(songObj.name)
+function changeCurrentSongDetails(songObj) {  //ek function bnaya h ism eek parameter pass kra songobj ka
+    $('.current-song-image').attr('src','img/' + songObj.image)//current-song-image k clss ko pkdo or img k rc attribute ko bdl do
+    $('.current-song-name').text(songObj.name)//
     $('.current-song-album').text(songObj.album)
 }
 
@@ -138,6 +144,12 @@ $('.time-elapsed').text(currentTime);// jo current time m text h usko time-elaps
 $('.song-duration').text(duration); //jo duration m text h usko song-duration k clss m dkhado
 
 }
+
+function timeJump() {
+  var song = document.querySelector('audio');
+   song.currentTime = song.duration - 5;
+}
+
 
 function addSongNameClickEvent(songObj,position) {
       var songName = songObj.fileName;
@@ -191,11 +203,33 @@ window.onload = function() {      //window k load hone pr niche vle funcn chalan
           paging: false
         });
 
-
 }
-$('.welcome-screen button').on('click', function() {  // welcome screen clss ko find kro usk andr button ko find kro n usp click hone p
+
+$('audio').on('ended',function() {
+  var audio = document.querySelector('audio');
+ if(currentSongNumber < 10) {
+   //play nxt song
+   var nextSongObj = songs[currentSongNumber];
+   audio.src = nextSongObj.fileName; //change krdya source ko
+   toggleSong();
+   changeCurrentSongDetails(nextSongObj); // update img
+   currentSongNumber = currentSongNumber + 1; // change state
+ }
+ else{
+   $('.play-icon').removeClass('fa-pause').addClass('fa-play');
+   audio.currentTime = 0;
+  //stop playing
+ }
+})
+
+
+
+
+
+
+$('.welcome-screen button').on('click', function() { // welcome screen clss ko find kro usk andr button ko find kro n usp click hone p
     var name = $('#name-input').val();    // id name-input k value ko dkhao
-    if (name.length > 2) {                      // only when name k length greater thn 2 ho
+    if (name.length > 3) {                      // only when name k length greater thn 2 ho
         var message = "Welcome, " + name;
         $('.main .user-name').text(message);
         $('.welcome-screen').addClass('hidden');
@@ -204,13 +238,33 @@ $('.welcome-screen button').on('click', function() {  // welcome screen clss ko 
         $('#name-input').addClass('error');   // nhi toh error clss ko add krna
     }
 });
-$('.play-icon').on('click', function() {       //
+
+$('.fa-repeat').on('click',function() {
+  $('.fa-repeat').toggleClass('disabled')//toggleClass is pre-defined function in this if any clss is added it will remove if not then add it
+  willLoop = 1 - willLoop;
+});
+
+
+
+$('.fa-random').on('click',function() {
+  $('.fa-random').toggleClass('disabled')
+  willLShuffle = 1 - willShuffle;
+});
+
+
+
+
+$('.play-icon').on('click', function() {      //
     //function ko cll krna
     toggleSong();
 });
-$('body').on('keypress', function(event) {
-            if (event.keyCode == 32) {
-//function ko cll krna
+
+
+
+        $('body').on('keypress',function(event) {
+            var target = event.target; //Tag is being stored here
+            if (event.keyCode == 32 && target.tagName !='INPUT')//&&=AND in this both must be true
+            {
                 toggleSong();
             }
         });

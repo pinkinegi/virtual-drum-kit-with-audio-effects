@@ -78,6 +78,7 @@ h1 {
 
 .clickable {
     cursor: pointer;
+
 }
 
 .error {
@@ -206,4 +207,10 @@ table.dataTable tbody tr {
     margin-bottom: 1rem;
     font-size: 16px;
     border-radius: 10px;
+}
+.player-buttons .fa {
+  margin-right: 2rem;// rem= root element
+}
+.fa.disabled {
+  color: gray;
 }
