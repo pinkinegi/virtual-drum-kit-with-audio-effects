@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title> virtual drum kit with audio effects</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="font-awesome.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 
@@ -18,10 +19,15 @@
             <div class="input-wrapper">
                 <input type="text" placeholder="Name" id="name-input">
                 <button> Go </button>
-            </div>
+                <div class="wrong" ></div>
+         </div>
         </section>
         <div  class="main">
             <header>
+              <div class="topic">
+                <h1>songs</h1>
+              <p><a class="btn btn-primary btn-lg" href="#" role="button">play</a></p>
+            </div>
                 <div class="right floated user-name"> </div>
             </header>
             <section class="content">
@@ -29,6 +35,7 @@
           <table id="songs">
                 <thead class="list-headers">
               <tr>
+
                   <td> Title </td>
                   <td> Artist </td>
                   <td> Album </td>
@@ -37,6 +44,7 @@
         </thead>
         <!-- <div class="song-list"> -->
              <tbody>
+
                 <tr class="song" id="song1">
                   <td  class="song-name"></td>
                  <td class="song-artist"></td>
@@ -94,7 +102,7 @@
                       <td class="song-length"></td>
                 </tr>
                 <tr class="song" id="song10">
-                      <td  class="song-name"></td>
+                    <td  class="song-name"></td>
                      <td class="song-artist"></td>
                     <td class="song-album"></td>
                     <td class="song-length"></td>
@@ -114,10 +122,14 @@
                 <div class="controls">
                     <div class="player-buttons">
                         <i class="fa fa-random clickable disabled" aria-hidden="true"></i>
-                        <i class="fa fa-step-backward clickable" aria-hidden="true"></i>
+                        <i class="fa fa-step-backward back-icon clickable" aria-hidden="true"></i>
                         <i class="fa fa-play clickable play-icon" aria-hidden="true"></i>
-                         <i class="fa fa-step-forward clickable" aria-hidden="true"></i>
+                         <i class="fa fa-step-forward next-icon clickable" aria-hidden="true"></i>
                          <i class="fa fa-repeat disabled clickable" aria-hidden="true"></i>
+                         <i class="fa fa-microphone-slash clickable disabled" aria-hidden="true"></i>
+                         <button class= "move"> <a href ="starter.html"> Click Here </a> </button>
+
+
                   </div>
                     <div class="progress-wrapper">
                         <span class="time-elapsed"> </span>
@@ -132,6 +144,7 @@
         </div>
     </div>
     <script src="jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="main.js">
     </script>

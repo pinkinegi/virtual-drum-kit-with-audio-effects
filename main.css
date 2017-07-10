@@ -185,6 +185,7 @@ h1 {
     font-size: 1.4rem;
     margin-top: 4px;
     margin-bottom: 0;
+
 }
 
 .current-song-album {
@@ -213,4 +214,51 @@ table.dataTable tbody tr {
 }
 .fa.disabled {
   color: gray;
+}
+.wrong{
+  margin-top: 10px;
+  font-family: sans-serif;
+  justify-content: center;
+  align-items: center;
+
+}
+.move{
+  position: absolute;
+  margin-left: 300px;
+  background-color: #BBB;
+  color: white;
+  text-decoration: none;
+}
+@media(max-width:1200px)
+{
+  .content
+  {
+    width:100% !important;
+  }
+}
+.error{
+margin-left: 100px;
+
+}
+.topic h1{
+  font-size: 40px;
+  font-family: monospace;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+.topic .btn.btn-primary{
+  background-color: #1db954;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 20px;
+  border: none;
+  padding:5px 30px 5px 30px;
+  color:white;
+  text-decoration: none;
+}
+.topic{
+  padding-top: 40px;
+  padding-left: 30px;
+  padding-bottom: 20px;
+  background: none;
 }

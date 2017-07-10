@@ -145,10 +145,10 @@ $('.song-duration').text(duration); //jo duration m text h usko song-duration k 
 
 }
 
-function timeJump() {
+ function timeJump() {
   var song = document.querySelector('audio');
    song.currentTime = song.duration - 5;
-}
+ }
 
 
 function addSongNameClickEvent(songObj,position) {
@@ -184,6 +184,7 @@ window.onload = function() {      //window k load hone pr niche vle funcn chalan
         updateCurrentTime();           // update krega jo current time h
         setInterval(function() {        // every 1000 milli scnd m show hoga
         updateCurrentTime();           // then again update time
+        updateTimer();
       },1000);
 
 
@@ -194,10 +195,11 @@ window.onload = function() {      //window k load hone pr niche vle funcn chalan
       var name = '#song' + (i+1);
       var song = $(name); // just catching the element eg- #song1
       song.find('.song-name').text(obj.name); // find srf jquery k sth use krte h n ism song.find m song var ko use kra h
-      song.find('.song-artist').text(obj.artist);
-      song.find('.song-album').text(obj.album);
-      song.find('.song-length').text(obj.duration);
-      addSongNameClickEvent(obj,i+1);
+      song.find('.song-artist').text(obj.artist);//obj m artist list ko find krk song-artist clss m daalega
+      song.find('.song-album').text(obj.album);// obj m album list ko find krk song-album clss m daalna
+      song.find('.song-length').text(obj.duration);//obj m duration k text ko clss song-length m daaldo
+      addSongNameClickEvent(obj,i+1);//passing 2 argumnts obj and position by i+1
+
 }
         $('#songs').DataTable({
           paging: false
@@ -205,22 +207,149 @@ window.onload = function() {      //window k load hone pr niche vle funcn chalan
 
 }
 
-$('audio').on('ended',function() {
+
+
+
+// $('audio').on('ended',function() {
+//     var audio = document.querySelector('audio');
+//     if(currentSongNumber < 10) {
+//         var nextSongObj = songs[currentSongNumber];
+//         audio.src = nextSongObj.fileName;
+//         toggleSong();
+//         changeCurrentSongDetails(nextSongObj);
+//         currentSongNumber = currentSongNumber + 1;
+//     }
+//     else if(willLoop == 1) {
+//         var nextSongObj = songs[0];
+//         audio.src = nextSongObj.fileName;
+//         toggleSong();
+//         changeCurrentSongDetails(nextSongObj);
+//         currentSongNumber =  1;
+//     }
+//     else {
+//         $('.play-icon').removeClass('fa-pause').addClass('fa-play');
+//         audio.currentTime = 0;
+//     }
+// })
+//for loop if it is on
+
+
+$('audio').on('ended',function(){
   var audio = document.querySelector('audio');
- if(currentSongNumber < 10) {
-   //play nxt song
-   var nextSongObj = songs[currentSongNumber];
-   audio.src = nextSongObj.fileName; //change krdya source ko
-   toggleSong();
-   changeCurrentSongDetails(nextSongObj); // update img
-   currentSongNumber = currentSongNumber + 1; // change state
- }
- else{
-   $('.play-icon').removeClass('fa-pause').addClass('fa-play');
-   audio.currentTime = 0;
-  //stop playing
- }
+  if(willLoop==1)
+{
+  if(currentSongNumber<songs.length)
+  {
+    var nextsong = songs[songNumber];
+    audio.src = "songs/"+ nextsong.filename;
+    changeCurrentSongDetails(nextsong);
+    toggleSong();
+    currentSongNumber = currentSongNumber+1;
+}
+else{
+  var nextsong  = songs[0];
+  audio.src = "songs/" + nextsong.filename;
+  toggleSong();
+  changeCurrentSongDetails(nextsong);
+  currentSongNumber = 1;
+}
+}
+});
+// }
+// else{
+//   $('.play-icon').removeClass('fa-pause').addClass('fa-play');
+//   audio.currentTime = 0;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+ $('audio').on('ended',function() { // audio k end hone p functn chlana
+   var audio = document.querySelector('audio');
+  if(currentSongNumber < 10) {
+    //play nxt song
+    var nextSongObj = songs[currentSongNumber]; //sbs phle currntsongno k value 0 hogi songs[0]mtlb no 1 p song h jo
+    audio.src = nextSongObj.fileName; //change krdya source ko
+    toggleSong();
+    changeCurrentSongDetails(nextSongObj); // update img
+    currentSongNumber = currentSongNumber + 1; // change state
+  }
+  else{
+    $('.play-icon').removeClass('fa-pause').addClass('fa-play');//else icon chnge krk
+    audio.currentTime = 0; //audio ka currnt time 0 krdo
+   //stop playing
+  }
+ })
+
+
+
+
+
+
+
+
+
+
+
+
+$('.next-icon').on('click',function() { //nxt-icon p click krk event hoga
+  var audio = document.querySelector('audio');
+  if(currentSongNumber < 10) { // if currentSongNumber less thn 10 tb  chlna ye
+    var next = songs[currentSongNumber]; // eg- songs[0]=1st song
+    audio.src = next.fileName;   // audio k source k chnge krdo
+    toggleSong();                    //toggle funcn kro
+    changeCurrentSongDetails(next);   // current details bhi chnge krd img vgrh
+    currentSongNumber = currentSongNumber + 1;  // fr incremnt krdo usko 1 s
+
+  }
+else{ //nhi toh
+currentSongNumber = 0; // vps s frst song p le aa
+}
 })
+
+
+$('.back-icon').on('click',function() {  //back-icon k clss p click hone p
+  var audio = document.querySelector('audio');
+  if(currentSongNumber > 0 && currentSongNumber < 11) { //agr currentsongno 0 k bda h or 11 s chota tb ye krna
+    var back = songs[currentSongNumber - 1];
+    audio.src = back.fileName;
+    toggleSong();
+    changeCurrentSongDetails(back);
+    currentSongNumber = currentSongNumber - 1; // decremnt krdo
+
+  }
+})
+
+//progress bar k liye funcn bnaya
+function updateTimer(){
+  var song = document.querySelector('audio');
+  var ct = song.currentTime;
+  var td = song.duration;
+  var percentage = (ct/td)*100;
+  $('.progress-filled').css('width',percentage+"%");//progress-filled k clss k css m jo percnt aaya h vo width krdo
+
+}
+
+$('.player-progress').click(function(event){ //jb bhi player progress k clss m click ho
+  var $this = $(this);
+  var widthclicked = event.pageX - $this.offset().left; // left s kitni duri p pointer click k position h
+  var totalWidth = $this.width(); //or jitni width aayi h store krdo
+  var calc = (widthclicked / totalWidth) * 100;
+  var song = document.querySelector('audio');
+  song.currentTime = (song.duration*calc)/100;
+});
+
+
+
 
 
 
@@ -236,6 +365,8 @@ $('.welcome-screen button').on('click', function() { // welcome screen clss ko f
         $('.main').removeClass('hidden');
     } else {
         $('#name-input').addClass('error');   // nhi toh error clss ko add krna
+        var wrong = "  Please Enter Your Name Length  more than 3 Letters ";
+        $('.welcome-screen .wrong').text(wrong);
     }
 });
 
@@ -251,10 +382,16 @@ $('.fa-random').on('click',function() {
   willLShuffle = 1 - willShuffle;
 });
 
+$('.fa-microphone-slash').on('click',function() {
+  $('.fa-microphone-slash').toggleClass('disabled')
+
+});
 
 
 
-$('.play-icon').on('click', function() {      //
+
+
+$('.play-icon').on('click', function() {      //jb plsy icon vli clss p click ho
     //function ko cll krna
     toggleSong();
 });
