@@ -210,29 +210,6 @@ window.onload = function() {      //window k load hone pr niche vle funcn chalan
 
 
 
-// $('audio').on('ended',function() {
-//     var audio = document.querySelector('audio');
-//     if(currentSongNumber < 10) {
-//         var nextSongObj = songs[currentSongNumber];
-//         audio.src = nextSongObj.fileName;
-//         toggleSong();
-//         changeCurrentSongDetails(nextSongObj);
-//         currentSongNumber = currentSongNumber + 1;
-//     }
-//     else if(willLoop == 1) {
-//         var nextSongObj = songs[0];
-//         audio.src = nextSongObj.fileName;
-//         toggleSong();
-//         changeCurrentSongDetails(nextSongObj);
-//         currentSongNumber =  1;
-//     }
-//     else {
-//         $('.play-icon').removeClass('fa-pause').addClass('fa-play');
-//         audio.currentTime = 0;
-//     }
-// })
-//for loop if it is on
-
 
 $('audio').on('ended',function(){
   var audio = document.querySelector('audio');
@@ -251,7 +228,7 @@ else{
   audio.src = "songs/" + nextsong.filename;
   toggleSong();
   changeCurrentSongDetails(nextsong);
-  currentSongNumber = 1;
+  currentSongNumber = 0;
 }
 }
 });

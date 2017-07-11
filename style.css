@@ -57,3 +57,13 @@ kbd {
     width:150% !important;
   }
 }
+.buttons{
+  text-align:center
+
+}
+.changecolor{
+  border: 2px solid red;
+}
+h2{
+  color:white;
+}
