@@ -44,7 +44,7 @@ h1 {
 }
 
 .main header {
-    height: 80px;
+    height: 50px;
     background-color: #282828;
     padding: 1rem;
     color: #FFF;
@@ -56,7 +56,7 @@ h1 {
 }
 
 .main footer {
-    height: 80px;
+    height: 70px;
     background-color: #282828;
     padding-top: 1rem;
 }
