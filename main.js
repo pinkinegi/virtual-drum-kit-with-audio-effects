@@ -27,14 +27,14 @@ var songs = [{
   'fileName': 'song3.mp3',
     'image'   : 'song3.jpg'
 },
-{
-  'name': 'The Breakup Song',
-  'artist': 'Nakash Aziz, Arjit Singh, Badshah, Jonita Gandhi',
-  'album': 'Ae Dil Hai Mushkil',
-  'duration': '2:29',
-  'fileName': 'song4.mp3',
-    'image'   : 'song4.jpg'
-},
+ {
+   'name': 'The Breakup Song',
+   'artist': 'Nakash Aziz, Arjit Singh, Badshah, Jonita Gandhi',
+   'album': 'Ae Dil Hai Mushkil',
+   'duration': '2:29',
+   'fileName': 'song4.mp3',
+     'image'   : 'song4.jpg'
+ },
 {
   'name': 'Beautifull Eyes',
   'artist': 'Taylor Swift',
@@ -74,14 +74,14 @@ var songs = [{
   'duration': '2:58',
   'fileName': 'song9.mp3',
     'image'   : 'song9.jpg'
-},
-{
-  'name': 'Dont Let Me Down',
-  'artist': 'Chainsmokers',
-  'album': 'Singles',
-  'duration': '3:28',
-  'fileName': 'song10.mp3',
-    'image'   : 'song10.jpg'
+// },
+// {
+//   'name': 'Dont Let Me Down',
+//   'artist': 'Chainsmokers',
+//   'album': 'Singles',
+//   'duration': '3:28',
+//   'fileName': 'song10.mp3',
+//     'image'   : 'song10.jpg'
 }];
 
 var songNumber = 1;        // var songNumber by default no.1 song store
@@ -252,7 +252,7 @@ else{
 
  $('audio').on('ended',function() { // audio k end hone p functn chlana
    var audio = document.querySelector('audio');
-  if(currentSongNumber < 10) {
+  if(currentSongNumber < 9) {
     //play nxt song
     var nextSongObj = songs[currentSongNumber]; //sbs phle currntsongno k value 0 hogi songs[0]mtlb no 1 p song h jo
     audio.src = nextSongObj.fileName; //change krdya source ko
@@ -280,7 +280,7 @@ else{
 
 $('.next-icon').on('click',function() { //nxt-icon p click krk event hoga
   var audio = document.querySelector('audio');
-  if(currentSongNumber < 10) { // if currentSongNumber less thn 10 tb  chlna ye
+  if(currentSongNumber < 9) { // if currentSongNumber less thn 10 tb  chlna ye
     var next = songs[currentSongNumber]; // eg- songs[0]=1st song
     audio.src = next.fileName;   // audio k source k chnge krdo
     toggleSong();                    //toggle funcn kro
@@ -296,7 +296,7 @@ currentSongNumber = 0; // vps s frst song p le aa
 
 $('.back-icon').on('click',function() {  //back-icon k clss p click hone p
   var audio = document.querySelector('audio');
-  if(currentSongNumber > 0 && currentSongNumber < 11) { //agr currentsongno 0 k bda h or 11 s chota tb ye krna
+  if(currentSongNumber > 0 && currentSongNumber < 10) { //agr currentsongno 0 k bda h or 11 s chota tb ye krna
     var back = songs[currentSongNumber - 1];
     audio.src = back.fileName;
     toggleSong();
